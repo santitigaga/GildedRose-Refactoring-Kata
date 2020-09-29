@@ -14,67 +14,67 @@ class GildedRose {
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            reduceSellInItem(i);
-            if (isEspecialItem(items[i])) {
-                valueItems(i);
+        for (Item item : items) {
+            reduceSellInItem(item);
+            if (isEspecialItem(item)) {
+                valueItems(item);
             } else {
-                devalueItems(i);
+                devalueItems(item);
             }
-            if (items[i].sellIn < 0) {
-                alterQualityWhenDaysAreOver(i);
+            if (item.sellIn < 0) {
+                alterQualityWhenDaysAreOver(item);
             }
         }
     }
 
-    private void valueItems(int i) {
-        if (canIncreaseQuality(items[i].quality)) {
-            if (items[i].name.equals(BACKSTAGE_ITEM)) {
-                increaseValueBackstage(i);
+    private void valueItems(Item item) {
+        if (canIncreaseQuality(item.quality)) {
+            if (item.name.equals(BACKSTAGE_ITEM)) {
+                increaseValueBackstage(item);
             } else {
-                increaseQuality(i);
+                increaseQuality(item);
             }
         }
     }
 
-    private void devalueItems(int i) {
-        if (items[i].name.equals(CONJURED_ITEM)) {
-            reduceQuality(i, 2);
+    private void devalueItems(Item item) {
+        if (item.name.equals(CONJURED_ITEM)) {
+            reduceQuality(item, 2);
         } else {
-            reduceQuality(i, 1);
+            reduceQuality(item, 1);
         }
     }
 
-    private void alterQualityWhenDaysAreOver(int i) {
-        if (items[i].name.equals(AGED_ITEM) && canIncreaseQuality(items[i].quality)) {
-            increaseQuality(i);
-        } else if (items[i].name.equals(BACKSTAGE_ITEM)) {
-            items[i].quality = 0;
+    private void alterQualityWhenDaysAreOver(Item item) {
+        if (item.name.equals(AGED_ITEM) && canIncreaseQuality(item.quality)) {
+            increaseQuality(item);
+        } else if (item.name.equals(BACKSTAGE_ITEM)) {
+            item.quality = 0;
         } else {
-            if (items[i].quality > 0 && !items[i].name.equals(SULFURAS_ITEM)) {
-                reduceQuality(i, 1);
+            if (item.quality > 0 && !item.name.equals(SULFURAS_ITEM)) {
+                reduceQuality(item, 1);
             }
         }
     }
 
-    private void reduceSellInItem(int i) {
-        if (!items[i].name.equals(SULFURAS_ITEM)) {
-            items[i].sellIn = items[i].sellIn - 1;
+    private void reduceSellInItem(Item item) {
+        if (!item.name.equals(SULFURAS_ITEM)) {
+            item.sellIn --;
         }
     }
 
-    private void increaseValueBackstage(int i) {
-        increaseQuality(i);
-        if (items[i].sellIn < 11 && canIncreaseQuality(items[i].quality)) {
-            increaseQuality(i);
+    private void increaseValueBackstage(Item item) {
+        increaseQuality(item);
+        if (item.sellIn < 11 && canIncreaseQuality(item.quality)) {
+            increaseQuality(item);
         }
-        if (items[i].sellIn < 6 && canIncreaseQuality(items[i].quality)) {
-            increaseQuality(i);
+        if (item.sellIn < 6 && canIncreaseQuality(item.quality)) {
+            increaseQuality(item);
         }
     }
 
-    private void increaseQuality(int i) {
-        items[i].quality = ++items[i].quality;
+    private void increaseQuality(Item item) {
+        item.quality ++;
     }
 
     private boolean canIncreaseQuality(int quality) {
@@ -86,9 +86,9 @@ class GildedRose {
                 || item.name.equals(BACKSTAGE_ITEM) || item.name.equals(SULFURAS_ITEM);
     }
 
-    private void reduceQuality(int i, int decrement) {
-        if (items[i].quality > 0) {
-            items[i].quality = items[i].quality - decrement;
+    private void reduceQuality(Item item, int decrement) {
+        if (item.quality > 0) {
+            item.quality = item.quality - decrement;
         }
     }
 }
