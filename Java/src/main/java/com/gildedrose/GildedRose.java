@@ -26,6 +26,16 @@ class GildedRose {
             }
         }
     }
+    private void reduceSell(Item item) {
+        if (!item.name.equals(SULFURAS_ITEM)) {
+            item.sellIn --;
+        }
+    }
+
+    private boolean isEspecial(Item item) {
+        return item.name.equals(AGED_ITEM)
+                || item.name.equals(BACKSTAGE_ITEM) || item.name.equals(SULFURAS_ITEM);
+    }
 
     private void value(Item item) {
         if (canIncreaseQuality(item.quality)) {
@@ -36,12 +46,32 @@ class GildedRose {
             }
         }
     }
+    private boolean canIncreaseQuality(int quality) {
+        return quality < MAX_DEFAULT_QUALITY;
+    }
+    private void increaseValueBackstage(Item item) {
+        increaseQuality(item);
+        if (item.sellIn < 11 && canIncreaseQuality(item.quality)) {
+            increaseQuality(item);
+        }
+        if (item.sellIn < 6 && canIncreaseQuality(item.quality)) {
+            increaseQuality(item);
+        }
+    }
+    private void increaseQuality(Item item) {
+        item.quality ++;
+    }
 
     private void devalue(Item item) {
         if (item.name.equals(CONJURED_ITEM)) {
             reduceQuality(item, 2);
         } else {
             reduceQuality(item, 1);
+        }
+    }
+    private void reduceQuality(Item item, int decrement) {
+        if (item.quality > 0) {
+            item.quality = item.quality - decrement;
         }
     }
 
@@ -57,38 +87,4 @@ class GildedRose {
         }
     }
 
-    private void reduceSell(Item item) {
-        if (!item.name.equals(SULFURAS_ITEM)) {
-            item.sellIn --;
-        }
-    }
-
-    private void increaseValueBackstage(Item item) {
-        increaseQuality(item);
-        if (item.sellIn < 11 && canIncreaseQuality(item.quality)) {
-            increaseQuality(item);
-        }
-        if (item.sellIn < 6 && canIncreaseQuality(item.quality)) {
-            increaseQuality(item);
-        }
-    }
-
-    private void increaseQuality(Item item) {
-        item.quality ++;
-    }
-
-    private boolean canIncreaseQuality(int quality) {
-        return quality < MAX_DEFAULT_QUALITY;
-    }
-
-    private boolean isEspecial(Item item) {
-        return item.name.equals(AGED_ITEM)
-                || item.name.equals(BACKSTAGE_ITEM) || item.name.equals(SULFURAS_ITEM);
-    }
-
-    private void reduceQuality(Item item, int decrement) {
-        if (item.quality > 0) {
-            item.quality = item.quality - decrement;
-        }
-    }
 }

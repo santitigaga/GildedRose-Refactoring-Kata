@@ -18,7 +18,7 @@ class GildedRoseTest {
                 new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
                 new Item("Backstage passes to a TAFKAL80ETC concert", 5, 47),
                 new Item("Backstage passes to a TAFKAL80ETC concert", 0, 47),
-                new Item("Conjured Mana Cake", 3, 6) };
+                new Item("Conjured Mana Cake", 3, 6)};
 
         GildedRose app = new GildedRose(items);
         app.updateQuality();
