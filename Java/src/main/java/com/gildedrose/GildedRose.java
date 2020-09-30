@@ -21,7 +21,6 @@ class GildedRose {
                     changeQualityBackstage(item);
                     break;
                 case SULFURAS_ITEM:
-                    changeQualitySulfuras(item);
                     break;
                 case AGED_ITEM:
                     changeQualityAged(item);
@@ -67,10 +66,6 @@ class GildedRose {
         } else if (item.quality == 1) {
             item.quality--;
         }
-    }
-
-    public void changeQualitySulfuras(Item item) {
-        item.quality = 80;
     }
 
     public void changeQualityDefault(Item item) {
